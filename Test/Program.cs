@@ -16,7 +16,7 @@ namespace Test
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.BencodeTest();
+            p.FilterInvalidTorrents();
             Console.Read();
         }
 
@@ -62,6 +62,19 @@ namespace Test
         void BencodeTest()
         {
             BDict torrentFile = BencodingUtils.DecodeFile(@"E:\Program Files (x86)\BitSpirit\Torrent - 副本\51C2F0FB04B2EFD2.torrent") as BDict;
+
+        }
+
+        void FilterInvalidTorrents()
+        {
+            String[] pathsStrings = Directory.GetFiles("D:\\test9", "*", SearchOption.TopDirectoryOnly);
+            foreach (string path in pathsStrings)
+            {
+                if (!Path.GetFileNameWithoutExtension(path).Replace("rarbg.to","").Contains("."))
+                {
+                    Tool.moveFile("invalid",path);
+                }
+            }
 
         }
 

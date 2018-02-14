@@ -112,7 +112,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(200, 21);
             this.textBox3.TabIndex = 6;
-            this.textBox3.Text = "server=localhost;uid=sa;pwd=a;database=cd";
+            this.textBox3.Text = "server=localhost;uid=sa;pwd=iamjack\'scolon;database=cd";
             // 
             // button4
             // 

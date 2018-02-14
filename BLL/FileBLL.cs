@@ -46,11 +46,20 @@ namespace BLL
             {
                 if (p.EndsWith(".torrent"))
                 {
+                    if (Path.GetFileNameWithoutExtension(p).ToLower().Contains(".sd."))
+                    {
+                        Tool.moveFile("SD", p);
+                        continue;
+                    }
                     md5 = GetMd5(p);
                     if (md5Set.Contains(md5))
                     {
-                        moveFile("Md5Duplicate",p);
+                        Tool.moveFile("Md5Duplicate",p);
                         continue;
+                    }
+                    if (!Path.GetFileNameWithoutExtension(p).Replace("rarbg.to", "").Contains("."))
+                    {
+                        Tool.moveFile("invalid", p);
                     }
                     BDict torrentFile = null;
                     bool hasBigFile = false;
@@ -60,7 +69,7 @@ namespace BLL
                     }
                     catch (Exception e)
                     {
-                        moveFile("decodeErr", p);
+                        Tool.moveFile("decodeErr", p);
                     }
                     if (torrentFile != null)
                     {
@@ -129,7 +138,7 @@ namespace BLL
                         }
                         if (!hasBigFile)
                         {
-                            moveFile("noBigFile", p);
+                            Tool.moveFile("noBigFile", p);
                         }
                         if (flag && hasBigFile)
                         {
@@ -160,7 +169,7 @@ namespace BLL
                     }
                     else
                     {
-                        moveFile("decodeErr", p);
+                        Tool.moveFile("decodeErr", p);
                     }
                 }
 
@@ -174,11 +183,11 @@ namespace BLL
         bool check(HisTorrent trt, bool ifCheckHis)
         {
             bool flag = true;
-            if (trt.Size > 60 * 1024 * 1024)
+            if (trt.Size > 15 * 1024 * 1024)
             {
                 if (fileDic.ContainsKey(Tool.filterName( trt.File)) )
                 {
-                    moveFile("duplicate", trt.Path);
+                    Tool.moveFile("duplicate", trt.Path);
                     return false;
                 }
                 if (ifCheckHis)
@@ -205,12 +214,12 @@ namespace BLL
 
                         if (t.Size >= trt.Size || t.CreateTime < startTime)
                         {
-                            moveFile("duplicate", trt.Path);
+                            Tool.moveFile("duplicate", trt.Path);
                             flag = false;
                         }
                         else
                         {
-                            moveFile("duplicate", t.Path);
+                            Tool.moveFile("duplicate", t.Path);
                         }
                     }
                     return flag;
@@ -223,34 +232,7 @@ namespace BLL
         }
 
 
-        void moveFile(string folderName, string path)
-        {
-            if (File.Exists(path))
-            {
-                string targetDir = Path.Combine(Path.GetDirectoryName(path), folderName);
-                if (!Directory.Exists(targetDir))
-                {
-                    Directory.CreateDirectory(targetDir);
-                }
-                try
-                {
-                    File.Move(path, Path.Combine(targetDir, Path.GetFileName(path)));
-                    if (File.Exists(path + ".htm"))
-                    {
-                        File.Move(path+".htm", Path.Combine(targetDir, Path.GetFileName(path))+".htm");
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("path too long    " + path);
-                    File.Move(path, Path.Combine(targetDir, Path.GetFileName(path)).Substring(0, 240) + ".torrent");
-                    File.Move(path+".htm", Path.Combine(targetDir, Path.GetFileName(path)).Substring(0, 240) + ".htm");
-                    Console.WriteLine("path too long    " + Path.Combine(targetDir, Path.GetFileName(path)).Substring(0, 240) + ".torrent");
-                }
-                Console.WriteLine(folderName + " " + path);
-            }
 
-        }
 
         void getList()
         {

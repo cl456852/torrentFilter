@@ -13,7 +13,7 @@ namespace DB
         static string insertHisSql = "insert into his1 values('{0}',{1},'{2}',{3},'{4}',getdate())";
         static string checkTorrentSql = "select count(*) from his where LOWER([file])='{0}' and size> 104857600";
         static string insertTorrentSql = "insert into his values('{0}',{1},'{2}',getdate(),'{3}','{4}')";
-        public static string connstr = @"server=localhost;uid=sa;pwd=a;database=cd";
+        public static string connstr = @"server=localhost;uid=sa;pwd=iamjack'scolon;database=cd";
         static string checkFilesSql = "select count(*) from files where filename='{0}' and length>60";
 
         static string checkUnknownTorrentsSql = "select count(*) from files where directory like '{0}%'";
@@ -178,7 +178,7 @@ namespace DB
             {
                 conn.Open();
                 SqlCommand sc = new SqlCommand(sql, conn);
-                sc.CommandTimeout = 180;  
+                sc.CommandTimeout = 1800;  
                 SqlDataReader reader = sc.ExecuteReader();
                 while (reader.Read())
                 {
