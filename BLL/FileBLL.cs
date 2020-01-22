@@ -48,7 +48,7 @@ namespace BLL
                 {
                     if (Path.GetFileNameWithoutExtension(p).ToLower().Contains(".sd."))
                     {
-                        Tool.moveFile("SD", p);
+                        Tool.moveFile("SD", p); 
                         continue;
                     }
                     md5 = GetMd5(p);

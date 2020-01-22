@@ -3,3 +3,15 @@ D:\document\new\work\torrentFilter\MODEL\bin\Debug\MODEL.pdb
 D:\document\new\work\torrentFilter\MODEL\obj\Debug\MODEL.dll
 D:\document\new\work\torrentFilter\MODEL\obj\Debug\MODEL.pdb
 D:\document\new\work\torrentFilter\MODEL\obj\Debug\MODEL.csprojResolveAssemblyReference.cache
+D:\document\new\code\torrentFilter\MODEL\bin\Debug\MODEL.dll
+D:\document\new\code\torrentFilter\MODEL\bin\Debug\MODEL.pdb
+D:\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.dll
+D:\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.pdb
+D:\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csprojResolveAssemblyReference.cache
+D:\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csproj.CoreCompileInputs.cache
+E:\d\document\new\code\torrentFilter\MODEL\bin\Debug\MODEL.dll
+E:\d\document\new\code\torrentFilter\MODEL\bin\Debug\MODEL.pdb
+E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csprojResolveAssemblyReference.cache
+E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csproj.CoreCompileInputs.cache
+E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.dll
+E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.pdb

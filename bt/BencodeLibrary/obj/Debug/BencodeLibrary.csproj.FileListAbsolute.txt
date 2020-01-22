@@ -2,3 +2,15 @@ D:\document\new\work\torrentFilter\bt\BencodeLibrary\bin\Debug\BencodeLibrary.dl
 D:\document\new\work\torrentFilter\bt\BencodeLibrary\bin\Debug\BencodeLibrary.pdb
 D:\document\new\work\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.dll
 D:\document\new\work\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.pdb
+D:\document\new\code\torrentFilter\bt\BencodeLibrary\bin\Debug\BencodeLibrary.dll
+D:\document\new\code\torrentFilter\bt\BencodeLibrary\bin\Debug\BencodeLibrary.pdb
+D:\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.csprojResolveAssemblyReference.cache
+D:\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.dll
+D:\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.pdb
+D:\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.csproj.CoreCompileInputs.cache
+E:\d\document\new\code\torrentFilter\bt\BencodeLibrary\bin\Debug\BencodeLibrary.dll
+E:\d\document\new\code\torrentFilter\bt\BencodeLibrary\bin\Debug\BencodeLibrary.pdb
+E:\d\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.csprojResolveAssemblyReference.cache
+E:\d\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.csproj.CoreCompileInputs.cache
+E:\d\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.dll
+E:\d\document\new\code\torrentFilter\bt\BencodeLibrary\obj\Debug\BencodeLibrary.pdb
