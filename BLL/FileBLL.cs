@@ -183,7 +183,7 @@ namespace BLL
         bool check(HisTorrent trt, bool ifCheckHis)
         {
             bool flag = true;
-            if (trt.Size > 15 * 1024 * 1024)
+            if (trt.Size > 15 * 1024 * 1024&&!trt.File.ToLower().Contains("sample"))
             {
                 if (fileDic.ContainsKey(Tool.filterName( trt.File)) )
                 {
