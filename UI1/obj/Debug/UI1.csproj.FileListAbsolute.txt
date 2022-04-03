@@ -53,7 +53,6 @@ E:\d\document\new\code\torrentFilter\UI1\bin\Debug\DAL.pdb
 E:\d\document\new\code\torrentFilter\UI1\bin\Debug\DB.pdb
 E:\d\document\new\code\torrentFilter\UI1\bin\Debug\MODEL.pdb
 E:\d\document\new\code\torrentFilter\UI1\bin\Debug\BencodeLibrary.pdb
-E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.csprojResolveAssemblyReference.cache
 E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.Form1.resources
 E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.Form2.resources
 E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.Properties.Resources.resources
@@ -62,3 +61,5 @@ E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.csproj.CoreCompileInputs.
 E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.csproj.CopyComplete
 E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.exe
 E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.pdb
+E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.csproj.AssemblyReference.cache
+E:\d\document\new\code\torrentFilter\UI1\obj\Debug\UI1.csproj.SuggestedBindingRedirects.cache

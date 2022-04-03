@@ -179,7 +179,7 @@ namespace UI1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            fb.process(textBox1.Text, false);
+           // fb.process(textBox1.Text, false);
             UnknowHtmlGernerator unknowHtmlGernerator = new UnknowHtmlGernerator();
             unknowHtmlGernerator.process(textBox1.Text);
         }

@@ -11,7 +11,7 @@ D:\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csprojResolveAssemblyRe
 D:\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csproj.CoreCompileInputs.cache
 E:\d\document\new\code\torrentFilter\MODEL\bin\Debug\MODEL.dll
 E:\d\document\new\code\torrentFilter\MODEL\bin\Debug\MODEL.pdb
-E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csprojResolveAssemblyReference.cache
 E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csproj.CoreCompileInputs.cache
 E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.dll
 E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.pdb
+E:\d\document\new\code\torrentFilter\MODEL\obj\Debug\MODEL.csproj.AssemblyReference.cache
