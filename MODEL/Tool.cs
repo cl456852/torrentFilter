@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -47,6 +48,30 @@ namespace MODEL
                 Console.WriteLine(folderName + " " + path);
             }
 
+        }
+
+        public static string Cmd(string cmd)
+        {
+            //string cmd = "python main.py \"magnet:?xt=urn:btih:4dc36dab7989ebe8ccbf1dc7b31595b2592d5162&dn=Moonstalker.1989.BRRip.x264-ION10&tr=http://tracker.trackerfix.com:80/announce&tr=udp://9.rarbg.me:2990&tr=udp://9.rarbg.to:2730&tr=udp://tracker.slowcheetah.org:14710&tr=udp://tracker.tallpenguin.org:15740\"";
+
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/c {cmd}",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
+
+            Process process = new Process
+            {
+                StartInfo = startInfo
+            };
+            process.Start();
+            string output = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return output;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DB
         static string insertHisSql = "insert into his1 values('{0}',{1},'{2}',{3},'{4}',getdate())";
         static string checkTorrentSql = "select count(*) from his where LOWER([file])='{0}' and size> 104857600";
         static string insertTorrentSql = "insert into his values('{0}',{1},'{2}',getdate(),'{3}','{4}')";
+        static string insertRarbgTitleSql = "insert into rarbgTitle values('{0}',{1}, '{2}')";
         public static string connstr = @"server=localhost;uid=sa;pwd=iamjack'scolon;database=cd";
         static string checkFilesSql = "select count(*) from files where filename='{0}' and length>60";
 
@@ -244,5 +245,50 @@ namespace DB
             return fileName;
         }
         
+        public static Dictionary<string, RarbgTitile> getFilteredRagbgTitle(string filterStr)
+        {
+            Dictionary<string, RarbgTitile> dic = new Dictionary<string, RarbgTitile>();
+            string sql = "select * from rarbgTitle";
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                SqlCommand sc = new SqlCommand(sql, conn);
+                SqlDataReader reader = sc.ExecuteReader();
+                while (reader.Read())
+                {
+                 
+                    float size = (float)Convert.ToDouble(reader["size"]);
+                    string name = reader["name"].ToString();
+                    string magLink = reader["magLink"].ToString();
+                    RarbgTitile rarbgTitile = new RarbgTitile(Convert.ToInt32 (reader["id"].ToString()),name, magLink, size);
+                    if(!dic.ContainsKey(rarbgTitile.FilteredName))
+                    { 
+                        dic.Add(rarbgTitile.FilteredName, rarbgTitile);
+                    }
+                    else
+                    {
+                        if(dic[rarbgTitile.FilteredName].Size<rarbgTitile.Size)
+                            dic[rarbgTitile.FilteredName] = rarbgTitile;
+                    }
+
+                    
+
+
+                }
+                return dic;
+
+            }
+        }
+
+        public static void InsertRarbgTitle( RarbgTitile rarbgTitile)
+        {
+            string sql = string.Format(insertRarbgTitleSql, rarbgTitile.Name, rarbgTitile.Size,rarbgTitile.Maglink );
+            using (SqlConnection conn = new SqlConnection(connstr))
+            {
+                conn.Open();
+                SqlCommand sc = new SqlCommand(sql, conn);
+                sc.ExecuteNonQuery();
+            }
+        }
     }
 }

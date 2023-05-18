@@ -12,6 +12,8 @@ using BLL;
 using DAL;
 using DB;
 using System.IO;
+using System.Text.RegularExpressions;
+
 namespace UI1
 {
     public partial class Form1 : Form
@@ -21,6 +23,12 @@ namespace UI1
             InitializeComponent();
         }
         List<MyFileInfo> list = new List<MyFileInfo>();
+
+        Regex sizeRegex = new Regex("Size:<\\/td><td class=\"lista\">.*?<\\/td>");
+        Regex titleRegex = new Regex("class=\"black\">.*?<\\/h1>");
+        Regex magRegex = new Regex("magnet:.*?\"");
+        Dictionary<string, RarbgTitile> titleDic;
+        Dictionary<string, RarbgTitile> titleDicNew=new Dictionary<string, RarbgTitile>();
 
         FileBLL fb = new FileBLL();
         public void refresh()
@@ -186,6 +194,110 @@ namespace UI1
 
         private void button3_Click_1(object sender, EventArgs e)
         {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if(titleDic==null)
+                titleDic= DBHelper.getFilteredRagbgTitle(Tool.filterString);
+
+
+            DirectoryInfo theFolder = new DirectoryInfo(textBox1.Text);
+            foreach (FileInfo file in theFolder.GetFiles())
+            {
+                if(file.Name.StartsWith("https"))
+                { continue; }
+
+                StreamReader sr = new StreamReader(file.FullName);
+                string content = sr.ReadToEnd();
+                sr.Close();
+                string name = titleRegex.Match(content).Value.Replace("class=\"black\">", "").Replace("</h1>", "");
+
+                
+
+                string sizeStr =  sizeRegex.Match(content).Value.Replace("Size:</td><td class=\"lista\">","").Replace("</td>","");
+                float size = 0;
+                if (sizeStr.EndsWith("GB"))
+                {
+                    size= (float)Convert.ToDouble( sizeStr.Replace("GB", ""))*1024;
+                }
+                else
+                {
+                    size = (float)Convert.ToDouble(sizeStr.Replace("MB", ""));
+                }
+
+                RarbgTitile rarbgTitile = new RarbgTitile();
+                rarbgTitile.Name = name;
+                rarbgTitile.Size = size;
+                rarbgTitile.Path = file.FullName;
+                rarbgTitile.Maglink = magRegex.Match(content).Value.Replace("\"", "").Replace("amp;","").Replace("&","^&");
+
+                //if (!RarbgTitleCheck(rarbgTitile))
+                //{
+                //    Console.WriteLine("Dup  " + rarbgTitile.Name);
+                //    continue;
+                //}
+                if(!SelfCheck(rarbgTitile))
+                {
+                    Console.WriteLine("Dup Self  " + rarbgTitile.Name);
+                    continue;
+                }
+
+                Console.WriteLine("OK   " + rarbgTitile.Name);
+                
+
+            }
+            foreach(var item in titleDicNew)
+            {
+                Tool.moveFile("OK", Path.Combine(textBox1.Text, item.Value.Path));
+                Console.WriteLine( Tool.Cmd("python main.py " + item.Value.Maglink));
+                DBHelper.InsertRarbgTitle( item.Value);
+            }
+
+        }
+
+        bool SelfCheck(RarbgTitile rarbgTitile)
+        {
+            if(!titleDicNew.ContainsKey(rarbgTitile.FilteredName))
+            {
+                titleDicNew.Add(rarbgTitile.FilteredName, rarbgTitile);
+                return true;
+            }
+            else if(titleDicNew[rarbgTitile.FilteredName].Size<rarbgTitile.Size)
+            {
+                titleDicNew[rarbgTitile.FilteredName] = rarbgTitile;
+                return true;
+            }
+            return false;
+
+        }
+
+        bool RarbgTitleCheck(RarbgTitile rarbgTitile)
+        {
+            if(!titleDic.ContainsKey(rarbgTitile.FilteredName))
+            {
+                return true;
+            }
+
+            if(titleDic[rarbgTitile.FilteredName].Size<rarbgTitile.Size)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+
+        void addQTorrent(string path)
+        {
+            FileInfo[] files = new DirectoryInfo(textBox1.Text).GetFiles();
+            foreach (FileInfo file in files)
+            {
+
+            }
 
         }
 
