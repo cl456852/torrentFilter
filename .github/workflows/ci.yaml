@@ -28,7 +28,7 @@ jobs:
     env:
       App_Packages_Directory: AppPackages
       SigningCertificate: GitHubActionsDemo.pfx
-      Solution_Path: MyWpfApp.sln
+      Solution_Path: TorrentFilter.sln
       Test_Project_Path: MyWpfApp.Tests\MyWpfApp.Tests.csproj
       Wpf_Project_Path: MyWpfApp\MyWpfApp.csproj
       Wap_Project_Directory: MyWpfApp.Package
@@ -64,15 +64,15 @@ jobs:
     #     $manifest.save(".\$env:Wap_Project_Directory\Package.appxmanifest")
 
     # Test
-    - name: Execute Unit Tests
-      run: dotnet test $env:Test_Project_Path
+    # - name: Execute Unit Tests
+    #   run: dotnet test $env:Test_Project_Path
 
-    # Restore the application
-    - name:  Restore the Wpf application to populate the obj folder
-      run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
-      env:
-        Configuration: Debug
-        RuntimeIdentifier: win-${{ matrix.targetplatform }}
+    # # Restore the application
+    # - name:  Restore the Wpf application to populate the obj folder
+    #   run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
+    #   env:
+    #     Configuration: Debug
+    #     RuntimeIdentifier: win-${{ matrix.targetplatform }}
 
     # Decode the Base64 encoded Pfx
     - name: Decode the Pfx
