@@ -66,7 +66,15 @@ jobs:
     # Test
     - name: Execute Unit Tests
       run: dotnet test --logger "trx;LogFileName=test-results.trx" || true
-
+      
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: DotNET Tests
+        path: "**/test-results.trx"
+        reporter: dotnet-trx
+        fail-on-error: true
     # # Restore the application
     # - name:  Restore the Wpf application to populate the obj folder
     #   run: msbuild $env:Solution_Path /t:Restore /p:Configuration=$env:Configuration /p:RuntimeIdentifier=$env:RuntimeIdentifier
