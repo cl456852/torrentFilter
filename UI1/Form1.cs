@@ -24,7 +24,7 @@ namespace UI1
         }
         List<MyFileInfo> list = new List<MyFileInfo>();
 
-        Regex sizeRegex = new Regex("Size:<\\/td><td class=\"lista\">.*?<\\/td>");
+        Regex sizeRegex = new Regex("<td class=\"lista\">.*?<\\/td>");
         Regex titleRegex = new Regex("class=\"black\">.*?<\\/h1>");
         Regex magRegex = new Regex("magnet:.*?\"");
         Dictionary<string, RarbgTitile> titleDic;
@@ -216,7 +216,7 @@ namespace UI1
 
                 
 
-                string sizeStr =  sizeRegex.Match(content).Value.Replace("Size:</td><td class=\"lista\">","").Replace("</td>","");
+                string sizeStr =  sizeRegex.Match(content).Value.Replace("<td class=\"lista\">","").Replace("</td>","");
                 float size = 0;
                 if (sizeStr.EndsWith("GB"))
                 {

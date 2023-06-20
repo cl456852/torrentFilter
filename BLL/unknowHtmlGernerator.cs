@@ -20,10 +20,12 @@ namespace BLL
             {
                 StreamReader sr = new StreamReader(file.FullName);
                 string content = sr.ReadToEnd();
-                string poster = posterRex.Match(content).Value.Replace("//","http://");
-                string desc = descRex.Match(content.Replace("\r\n","")).Value.Replace("<div","");
-                string torrent = torrentRex.Match(content).Value.Replace("/download.php?", "http://rarbg.com/download.php?");
-                result += poster + "<br>\r\n" + desc + "<br>\r\n" + torrent + "<br>\r\n";
+                string[] splitter = new string[] {"<h1 class=\"black\">", "<button class=\"btn btn-small btn-primary\">" };
+                result+=content.Split(splitter, StringSplitOptions.None)[1];
+                //string poster = posterRex.Match(content).Value.Replace("//","http://");
+                //string desc = descRex.Match(content.Replace("\r\n","")).Value.Replace("<div","");
+                //string torrent = torrentRex.Match(content).Value.Replace("/download.php?", "http://rarbg.com/download.php?");
+                //result += poster + "<br>\r\n" + desc + "<br>\r\n" + torrent + "<br>\r\n";
             }
             File.WriteAllText(Path.Combine(path,"result.htm"),result);
         }
