@@ -27,8 +27,8 @@ namespace UI1
         Regex sizeRegex = new Regex("Size:<\\/td><td class=\"lista\">.*?<\\/td>");
         Regex titleRegex = new Regex("class=\"black\">.*?<\\/h1>");
         Regex magRegex = new Regex("magnet:.*?\"");
-        Dictionary<string, RarbgTitile> titleDic;
-        Dictionary<string, RarbgTitile> titleDicNew=new Dictionary<string, RarbgTitile>();
+        Dictionary<string, RarbgTitle> titleDic;
+        Dictionary<string, RarbgTitle> titleDicNew=new Dictionary<string, RarbgTitle>();
 
         FileBLL fb = new FileBLL();
         public void refresh()
@@ -188,8 +188,8 @@ namespace UI1
         private void button4_Click(object sender, EventArgs e)
         {
            // fb.process(textBox1.Text, false);
-            UnknowHtmlGernerator unknowHtmlGernerator = new UnknowHtmlGernerator();
-            unknowHtmlGernerator.process(textBox1.Text);
+            UnknownHtmlGenerator unknownHtmlGenerator = new UnknownHtmlGenerator();
+            unknownHtmlGenerator.process(textBox1.Text);
         }
 
         private void button3_Click_1(object sender, EventArgs e)
@@ -227,24 +227,24 @@ namespace UI1
                     size = (float)Convert.ToDouble(sizeStr.Replace("MB", ""));
                 }
 
-                RarbgTitile rarbgTitile = new RarbgTitile();
-                rarbgTitile.Name = name;
-                rarbgTitile.Size = size;
-                rarbgTitile.Path = file.FullName;
-                rarbgTitile.Maglink = magRegex.Match(content).Value.Replace("\"", "").Replace("amp;","").Replace("&","^&");
+                RarbgTitle rarbgTitle = new RarbgTitle();
+                rarbgTitle.Name = name;
+                rarbgTitle.Size = size;
+                rarbgTitle.Path = file.FullName;
+                rarbgTitle.Maglink = magRegex.Match(content).Value.Replace("\"", "").Replace("amp;","").Replace("&","^&");
 
                 //if (!RarbgTitleCheck(rarbgTitile))
                 //{
                 //    Console.WriteLine("Dup  " + rarbgTitile.Name);
                 //    continue;
                 //}
-                if(!SelfCheck(rarbgTitile))
+                if(!SelfCheck(rarbgTitle))
                 {
-                    Console.WriteLine("Dup Self  " + rarbgTitile.Name);
+                    Console.WriteLine("Dup Self  " + rarbgTitle.Name);
                     continue;
                 }
 
-                Console.WriteLine("OK   " + rarbgTitile.Name);
+                Console.WriteLine("OK   " + rarbgTitle.Name);
                 
 
             }
@@ -257,30 +257,30 @@ namespace UI1
 
         }
 
-        bool SelfCheck(RarbgTitile rarbgTitile)
+        bool SelfCheck(RarbgTitle rarbgTitle)
         {
-            if(!titleDicNew.ContainsKey(rarbgTitile.FilteredName))
+            if(!titleDicNew.ContainsKey(rarbgTitle.FilteredName))
             {
-                titleDicNew.Add(rarbgTitile.FilteredName, rarbgTitile);
+                titleDicNew.Add(rarbgTitle.FilteredName, rarbgTitle);
                 return true;
             }
-            else if(titleDicNew[rarbgTitile.FilteredName].Size<rarbgTitile.Size)
+            else if(titleDicNew[rarbgTitle.FilteredName].Size<rarbgTitle.Size)
             {
-                titleDicNew[rarbgTitile.FilteredName] = rarbgTitile;
+                titleDicNew[rarbgTitle.FilteredName] = rarbgTitle;
                 return true;
             }
             return false;
 
         }
 
-        bool RarbgTitleCheck(RarbgTitile rarbgTitile)
+        bool RarbgTitleCheck(RarbgTitle rarbgTitle)
         {
-            if(!titleDic.ContainsKey(rarbgTitile.FilteredName))
+            if(!titleDic.ContainsKey(rarbgTitle.FilteredName))
             {
                 return true;
             }
 
-            if(titleDic[rarbgTitile.FilteredName].Size<rarbgTitile.Size)
+            if(titleDic[rarbgTitle.FilteredName].Size<rarbgTitle.Size)
             {
                 return true;
             }
@@ -343,7 +343,12 @@ namespace UI1
         //        sortColumn.HeaderCell.SortGlyphDirection = sortOrder;
         //    }
         //}
+        
 
-
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            PornoMagnet pornoMagnet = new PornoMagnet();
+            pornoMagnet.Process(textBox1.Text);
+        }
     }
 }

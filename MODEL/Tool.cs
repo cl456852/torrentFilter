@@ -73,5 +73,25 @@ namespace MODEL
             process.WaitForExit();
             return output;
         }
+
+        public static string FilterFilePre(string name)
+        {
+            name = name.ToLower().Replace(".", "").Replace("-", "").Replace("_", "").Replace(" ", "");
+            if (name.Length >= 28)
+            {
+                name = name.Substring(0, 28);
+            }
+
+            return name;
+
+        }
+
+        public static string ReadFile(string path)
+        {
+            StreamReader sr = new StreamReader(path);
+            string s= sr.ReadToEnd();
+            sr.Close();
+            return s;
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using GetSize;
 
 namespace DAL
 {
@@ -166,7 +167,7 @@ namespace DAL
             DBHelper.conn.Close();
             return maxcd;
         }
-
+        
 
     }
 }

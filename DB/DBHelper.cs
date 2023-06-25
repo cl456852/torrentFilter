@@ -13,7 +13,7 @@ namespace DB
         static string insertHisSql = "insert into his1 values('{0}',{1},'{2}',{3},'{4}',getdate())";
         static string checkTorrentSql = "select count(*) from his where LOWER([file])='{0}' and size> 104857600";
         static string insertTorrentSql = "insert into his values('{0}',{1},'{2}',getdate(),'{3}','{4}')";
-        static string insertRarbgTitleSql = "insert into rarbgTitle values('{0}',{1}, '{2}')";
+        static string insertRarbgTitleSql = "insert into rarbgTitle values('{0}',{1}, '{2}', GETDATE())";
         public static string connstr = @"server=localhost;uid=sa;pwd=iamjack'scolon;database=cd";
         static string checkFilesSql = "select count(*) from files where filename='{0}' and length>60";
 
@@ -245,9 +245,9 @@ namespace DB
             return fileName;
         }
         
-        public static Dictionary<string, RarbgTitile> getFilteredRagbgTitle(string filterStr)
+        public static Dictionary<string, RarbgTitle> getFilteredRagbgTitle(string filterStr)
         {
-            Dictionary<string, RarbgTitile> dic = new Dictionary<string, RarbgTitile>();
+            Dictionary<string, RarbgTitle> dic = new Dictionary<string, RarbgTitle>();
             string sql = "select * from rarbgTitle";
             using (SqlConnection conn = new SqlConnection(connstr))
             {
@@ -260,15 +260,15 @@ namespace DB
                     float size = (float)Convert.ToDouble(reader["size"]);
                     string name = reader["name"].ToString();
                     string magLink = reader["magLink"].ToString();
-                    RarbgTitile rarbgTitile = new RarbgTitile(Convert.ToInt32 (reader["id"].ToString()),name, magLink, size);
-                    if(!dic.ContainsKey(rarbgTitile.FilteredName))
+                    RarbgTitle rarbgTitle = new RarbgTitle(Convert.ToInt32 (reader["id"].ToString()),name, magLink, size);
+                    if(!dic.ContainsKey(rarbgTitle.FilteredName))
                     { 
-                        dic.Add(rarbgTitile.FilteredName, rarbgTitile);
+                        dic.Add(rarbgTitle.FilteredName, rarbgTitle);
                     }
                     else
                     {
-                        if(dic[rarbgTitile.FilteredName].Size<rarbgTitile.Size)
-                            dic[rarbgTitile.FilteredName] = rarbgTitile;
+                        if(dic[rarbgTitle.FilteredName].Size<rarbgTitle.Size)
+                            dic[rarbgTitle.FilteredName] = rarbgTitle;
                     }
 
                     
@@ -280,15 +280,68 @@ namespace DB
             }
         }
 
-        public static void InsertRarbgTitle( RarbgTitile rarbgTitile)
+        public static void InsertRarbgTitle( RarbgTitle rarbgTitle)
         {
-            string sql = string.Format(insertRarbgTitleSql, rarbgTitile.Name, rarbgTitile.Size,rarbgTitile.Maglink );
+            string sql = string.Format(insertRarbgTitleSql, rarbgTitle.Name.Replace("'","''"), rarbgTitle.Size,rarbgTitle.Maglink );
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();
                 SqlCommand sc = new SqlCommand(sql, conn);
                 sc.ExecuteNonQuery();
             }
+        }
+        
+        
+        public static List<MyFileInfo> GetAllFile()
+        {
+            string sql = "select fileName, length, directory from files where (len(fileName)>35 or len(directory)>35) and length>50";
+            List<MyFileInfo> myFileInfoList=new List<MyFileInfo>();
+            SqlDataReader sdr= DBHelper.SearchSql(sql);
+
+            while (sdr.Read())
+            {
+                MyFileInfo myFileInfo = new MyFileInfo();
+                myFileInfo.FileName = sdr["fileName"].ToString();
+                myFileInfo.Length = Convert.ToDouble(sdr["length"]);
+                myFileInfo.Directory = sdr["directory"].ToString();
+                myFileInfoList.Add(myFileInfo);
+            }
+            sdr.Close();
+            return myFileInfoList;
+        }
+
+        public static List<HisTorrent> GetAllHis()
+        {
+            string sql = "select [file], size/1024/2024 as size from his where len([file])>35 and size>50";
+
+            List<HisTorrent> hisList = new List<HisTorrent>();
+            SqlDataReader sdr= DBHelper.SearchSql(sql);
+
+            while (sdr.Read())
+            {
+                HisTorrent hisTorrent = new HisTorrent();
+                hisTorrent.Size = Convert.ToDouble(sdr["size"]);
+                hisTorrent.File = sdr["file"].ToString();
+                hisList.Add(hisTorrent);
+            }
+            sdr.Close();
+            return hisList;
+        }
+
+        public static List<RarbgTitle> GetAllRarbgTitle()
+        {
+            string sql = "select name, size from rarbgTitle";
+            List<RarbgTitle> list = new List<RarbgTitle>();
+            SqlDataReader sdr= DBHelper.SearchSql(sql);
+            while (sdr.Read())
+            {
+                RarbgTitle rarbgTitle = new RarbgTitle();
+                rarbgTitle.Name = sdr["name"].ToString();
+                rarbgTitle.Size = (float)Convert.ToDouble(sdr["size"]);
+                list.Add(rarbgTitle);
+            }
+
+            return list;
         }
     }
 }

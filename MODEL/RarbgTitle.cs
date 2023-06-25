@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MODEL
 {
-    public class RarbgTitile
+    public class RarbgTitle
     {
 
         int id;
@@ -21,11 +21,11 @@ namespace MODEL
 
 
 
-        public RarbgTitile()
+        public RarbgTitle()
         {
         }
 
-        public RarbgTitile(int id, string name, string maglink, float size )
+        public RarbgTitle(int id, string name, string maglink, float size )
         {
             this.id = id;
             this.name = name;
@@ -45,7 +45,7 @@ namespace MODEL
             {
                 if (String.IsNullOrEmpty(filteredName))
                 {
-                    filteredName = Tool.filterName(name);
+                    filteredName = Tool.FilterFilePre(name);
                 }
                 return filteredName;
             }

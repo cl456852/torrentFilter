@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace BLL
 {
-    public class UnknowHtmlGernerator
+    public class UnknownHtmlGenerator
     {
         public void process(string path)
         {
