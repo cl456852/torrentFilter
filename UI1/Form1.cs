@@ -350,5 +350,13 @@ namespace UI1
             PornoMagnet pornoMagnet = new PornoMagnet();
             pornoMagnet.Process(textBox1.Text);
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            PornoMagnetUnknown pornoMagnetUnknown = new PornoMagnetUnknown();
+
+            pornoMagnetUnknown.process(textBox1.Text);
+
+        }
     }
 }

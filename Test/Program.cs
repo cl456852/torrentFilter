@@ -16,7 +16,7 @@ namespace Test
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.FilterInvalidTorrents();
+            p.testFilterName();
             Console.Read();
         }
 
@@ -76,6 +76,14 @@ namespace Test
                 }
             }
 
+        }
+
+        void testFilterName()
+        {
+            string name = "FemJoy 23 06 24 Emma K Cooking XXX 1080p MP4-WRB [XC]";
+            string name1 = "FemJoy.23.06.24.Emma.K.Cooking.XXX.720p.HEVC.x265.PRT[XvX]";
+            Console.WriteLine(Tool.FilterFilePre(name));
+            Console.WriteLine(Tool.FilterFilePre(name1));
         }
 
     }
