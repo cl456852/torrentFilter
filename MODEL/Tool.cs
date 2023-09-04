@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using BencodeLibrary;
 
 namespace MODEL
 {
@@ -77,9 +78,9 @@ namespace MODEL
         public static string FilterFilePre(string name)
         {
             name = name.ToLower().Replace(".", "").Replace("-", "").Replace("_", "").Replace(" ", "");
-            if (name.Length >= 25)
+            if (name.Length >= 24)
             {
-                name = name.Substring(0, 25);
+                name = name.Substring(0, 24);
             }
 
             return name;
@@ -92,6 +93,43 @@ namespace MODEL
             string s= sr.ReadToEnd();
             sr.Close();
             return s;
+        }
+
+        public static List<RarbgTitle> DecodeTorrent(string p)
+        {
+            List<RarbgTitle> rarbgTitles = new List<RarbgTitle>();
+            bool hasBigFile = false;
+            BDict torrentFile = null;
+            try
+            {
+                torrentFile = BencodingUtils.DecodeFile(p) as BDict;
+            }
+            catch (Exception e)
+            {
+                Tool.moveFile("decodeErr", p);
+                return rarbgTitles;
+            }
+            BList b;
+            b = (BList)(torrentFile["info"] as BDict)["files"];
+
+
+
+            for (int i = 0; i < b.Count; i++)
+            {
+                BDict bd = (BDict)b[i];
+                long length = ((BInt)bd["length"]).Value;
+                float size = length / 1024 / 1024;
+                if (size < 30)
+                    continue;
+                BList list = (BList)bd["path"];
+                string s = ((BString)list[list.Count - 1]).Value;
+                RarbgTitle rarbgTitle = new RarbgTitle();
+                rarbgTitle.Size = length / 1024 / 1024;
+                rarbgTitle.Name = s;
+                rarbgTitles.Add(rarbgTitle);
+            }
+
+            return rarbgTitles;
         }
     }
 }

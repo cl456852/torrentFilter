@@ -27,7 +27,7 @@ namespace BLL
                     if (item.Contains("<html><head><title>"))
                         continue;
                     RarbgTitle rarbgTitle = new RarbgTitle();
-                    rarbgTitle.Maglink = magnetRegex.Match(item).Groups[1].Value.Replace("amp;","").Replace("&","^&").TrimStart();
+                    rarbgTitle.Maglink = magnetRegex.Match(item).Groups[1].Value.Replace("amp;","").TrimStart();
                     rarbgTitle.Name = titleRegex.Match(item).Groups[1].Value.TrimStart();
                     string sizeStr = sizeRegex.Match(item).Groups[1].Value;
 

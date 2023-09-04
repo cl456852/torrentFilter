@@ -13,7 +13,7 @@ namespace DB
         static string insertHisSql = "insert into his1 values('{0}',{1},'{2}',{3},'{4}',getdate())";
         static string checkTorrentSql = "select count(*) from his where LOWER([file])='{0}' and size> 104857600";
         static string insertTorrentSql = "insert into his values('{0}',{1},'{2}',getdate(),'{3}','{4}')";
-        static string insertRarbgTitleSql = "insert into rarbgTitle values('{0}',{1}, '{2}', GETDATE())";
+        static string insertRarbgTitleSql = "insert into rarbgTitle values('{0}',{1}, '{2}','{3}', GETDATE())";
         public static string connstr = @"server=localhost;uid=sa;pwd=iamjack'scolon;database=cd";
         static string checkFilesSql = "select count(*) from files where filename='{0}' and length>60";
 
@@ -282,7 +282,7 @@ namespace DB
 
         public static void InsertRarbgTitle( RarbgTitle rarbgTitle)
         {
-            string sql = string.Format(insertRarbgTitleSql, rarbgTitle.Name.Replace("'","''"), rarbgTitle.Size,rarbgTitle.Maglink );
+            string sql = string.Format(insertRarbgTitleSql, rarbgTitle.Name.Replace("'","''"), rarbgTitle.Size,rarbgTitle.Maglink.Replace("'","''"), rarbgTitle.Path.Replace("'","''") );
             using (SqlConnection conn = new SqlConnection(connstr))
             {
                 conn.Open();

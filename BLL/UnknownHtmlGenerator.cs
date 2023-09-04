@@ -7,9 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace BLL
 {
-    public class UnknownHtmlGenerator
+    public class UnknownHtmlGenerator:IUnknown
     {
-        public void process(string path)
+        public void Process(string path)
         {
             Regex posterRex = new Regex("Poster:<br></td>.*</td></tr>");
             Regex descRex = new Regex("Description:</td>.*<div");

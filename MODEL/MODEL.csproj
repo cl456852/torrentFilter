@@ -104,6 +104,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bt\BencodeLibrary\BencodeLibrary.csproj">
+      <Project>{0305b6f5-8baf-4b97-8bb5-50550c1c6f3c}</Project>
+      <Name>BencodeLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

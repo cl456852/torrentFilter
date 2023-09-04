@@ -71,14 +71,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="141javAnalysis.cs" />
-    <Compile Include="18javAnaysis.cs" />
+    <Compile Include="Btdig.cs" />
     <Compile Include="FileBLL.cs" />
-    <Compile Include="Filter.cs" />
-    <Compile Include="HelloJavAnalysis.cs" />
+    <Compile Include="FilterBase.cs" />
+    <Compile Include="IUnknown.cs" />
     <Compile Include="PornoMagnet.cs" />
     <Compile Include="PornoMagnetUnknown.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TorrentFilter.cs" />
     <Compile Include="UnknownHtmlGenerator.cs" />
+    <Compile Include="Xxxclub.cs" />
+    <Compile Include="XxxClubUnknown.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\bt\BencodeLibrary\BencodeLibrary.csproj">
