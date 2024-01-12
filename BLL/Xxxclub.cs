@@ -11,7 +11,7 @@ namespace BLL
         
         private Regex magnetRegex=new Regex("(magnet:.*?)\"");
         private Regex titleRegex = new Regex("og:title\" content=\"(.*?)\"");
-        private Regex sizeRegex = new Regex("<dd>([\\d.]+ [A-Z]+)<\\/dd>");
+        private Regex sizeRegex = new Regex("<li><span>Size<\\/span><span> : <\\/span><span>(.*)<\\/span><\\/li>");
         private Regex smallRegex = new Regex("<dd>480p|<dd>360p");
         public override List<RarbgTitle> GetList(string directoryStr)
         {
