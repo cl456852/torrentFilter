@@ -78,9 +78,9 @@ namespace MODEL
         public static string FilterFilePre(string name)
         {
             name = name.ToLower().Replace(".", "").Replace("-", "").Replace("_", "").Replace(" ", "");
-            if (name.Length >= 24)
+            if (name.Length >= 30)
             {
-                name = name.Substring(0, 24);
+                name = name.Substring(0, 30);
             }
 
             return name;

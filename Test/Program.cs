@@ -80,8 +80,8 @@ namespace Test
 
         void testFilterName()
         {
-            string name = "FemJoy 23 06 24 Emma K Cooking XXX 1080p MP4-WRB [XC]";
-            string name1 = "FemJoy.23.06.24.Emma.K.Cooking.XXX.720p.HEVC.x265.PRT[XvX]";
+            string name = "MetArt 23 12 19 Jessica Brooks Smoking Hot XXX 2160p MP4-WRB [XC]";
+            string name1 = "MetArt.23.12.19.Jessica.Brooks.Smoking.Hot.XXX.2160p.MP4-WRB[XvX]";
             Console.WriteLine(Tool.FilterFilePre(name));
             Console.WriteLine(Tool.FilterFilePre(name1));
         }

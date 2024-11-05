@@ -32,7 +32,7 @@ namespace BLL
                 RarbgTitle rarbgTitle = new RarbgTitle();
                 rarbgTitle.Path = path;
                 rarbgTitle.Name = titleRegex.Match(content).Value.Replace("<h1>","").Replace("</h1>","");
-                string sizeStr = sizeRegex.Match(content).Value.Replace("Размер</td><td>", "").Replace("</td></tr>","");
+                string sizeStr = sizeRegex.Match(content).Value.Replace("Размер</td><td>", "").Replace("</td></tr>","").Replace(" ","");
                 rarbgTitle.Maglink = magnetRegex.Match(content).Value.Replace("\"", "").Replace("amp;","");
                 
                 if (sizeStr.EndsWith("GB"))
