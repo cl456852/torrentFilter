@@ -90,10 +90,6 @@
       <Project>{0305B6F5-8BAF-4B97-8BB5-50550C1C6F3C}</Project>
       <Name>BencodeLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{C1B6322C-6207-47DD-8FA5-05E326B08867}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DB\DB.csproj">
       <Project>{921EBE20-E9B1-440C-A1C4-178606343A36}</Project>
       <Name>DB</Name>

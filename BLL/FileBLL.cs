@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DAL;
 using System.Linq;
 using System.IO;
 using System.Collections;
 using MODEL;
 using System.Text.RegularExpressions;
-using GetSize;
 using BencodeLibrary;
 using DB;
 using System.Security.Cryptography;
@@ -16,22 +14,13 @@ namespace BLL
 {
     public class FileBLL
     {
-        MD5 md5 = MD5.Create();
         
         Dictionary<string, HisTorrent> dic;
         Dictionary<string, HisTorrent> fileDic;
         HashSet<String> md5Set = new HashSet<string>();
         Dictionary<string,HisTorrent> torrentNameDic = new Dictionary<string,HisTorrent>();
         DateTime startTime;
-        public FileBLL()
-        {
-     
-        }
-
-        public List<MyFileInfo> getFileList()
-        {
-            return FileDAL.selectMyFileInfo("");
-        }
+        
 
         public void process(string directoryStr,bool ifCheckHis)
         {
@@ -255,10 +244,6 @@ namespace BLL
                     }
                 }
             }
-            //foreach (string s in dic.Keys)
-            //{
-            //    Console.WriteLine(s);
-            //}
         }
 
 

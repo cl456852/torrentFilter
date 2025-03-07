@@ -70,7 +70,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="His.cs" />
     <Compile Include="HisTorrent.cs" />
     <Compile Include="MyFileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
