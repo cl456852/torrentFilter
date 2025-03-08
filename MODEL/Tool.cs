@@ -42,8 +42,7 @@ namespace MODEL
                 catch (Exception e)
                 {
                     Console.WriteLine("path too long    " + path);
-                    File.Move(path, Path.Combine(targetDir, Path.GetFileName(path)).Substring(0, 240) + ".torrent");
-                    File.Move(path + ".htm", Path.Combine(targetDir, Path.GetFileName(path)).Substring(0, 240) + ".htm");
+                    File.Move(path , Path.Combine(targetDir, Path.GetFileName(path)).Substring(0, 240) + ".htm");
                     Console.WriteLine("path too long    " + Path.Combine(targetDir, Path.GetFileName(path)).Substring(0, 240) + ".torrent");
                 }
                 Console.WriteLine(folderName + " " + path);

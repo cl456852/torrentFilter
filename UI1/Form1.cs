@@ -12,6 +12,8 @@ using BLL;
 using DB;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using UI1;
 
 namespace UI1
 {
@@ -21,7 +23,6 @@ namespace UI1
         {
             InitializeComponent();
         }
-        List<MyFileInfo> list = new List<MyFileInfo>();
 
         Regex sizeRegex = new Regex("Size:<\\/td><td class=\"lista\">.*?<\\/td>");
         Regex titleRegex = new Regex("class=\"black\">.*?<\\/h1>");
@@ -32,7 +33,19 @@ namespace UI1
         FileBLL fb = new FileBLL();
         private void Form1_Load(object sender, EventArgs e)
         {
-            comboBox1.SelectedText = "PornoMagnet";   
+            Console.SetOut(new ConsoleWriter(this)); 
+            Dictionary<string, string> items = new Dictionary<string, string>
+            {
+                { "Xxxclub", "XXXclub" },
+                { "PornoMagnet", "PornoMagnet" },
+                { "TorrentFilter", "TorrentFilter" },
+                { "Btdig", "Btdig" }
+                
+            };
+
+            comboBox1.DataSource = new BindingSource(items, null);
+            comboBox1.DisplayMember = "Value";  // 显示值
+            comboBox1.ValueMember = "Key";      // 存储的键
         }
 
         private void Insert_Click(object sender, EventArgs e)
@@ -47,7 +60,6 @@ namespace UI1
         
         private void button4_Click(object sender, EventArgs e)
         {
-           // fb.process(textBox1.Text, false);
             UnknownHtmlGenerator unknownHtmlGenerator = new UnknownHtmlGenerator();
             unknownHtmlGenerator.Process(textBox1.Text);
         }
@@ -87,12 +99,7 @@ namespace UI1
                 rarbgTitle.Size = size;
                 rarbgTitle.Path = file.FullName;
                 rarbgTitle.Maglink = magRegex.Match(content).Value.Replace("\"", "").Replace("amp;","");
-
-                //if (!RarbgTitleCheck(rarbgTitile))
-                //{
-                //    Console.WriteLine("Dup  " + rarbgTitile.Name);
-                //    continue;
-                //}
+                
                 if(!SelfCheck(rarbgTitle))
                 {
                     Console.WriteLine("Dup Self  " + rarbgTitle.Name);
@@ -127,45 +134,62 @@ namespace UI1
             return false;
 
         }
-
-
-        private void button1_Click_2(object sender, EventArgs e)
+        public void AppendLog(string message)
         {
-            FilterBase filter=null;
-            if(comboBox1.Text=="PornoMagnet")
-            { 
-                filter = new PornoMagnet();
-            } else if(comboBox1.Text=="Btdig")
+            if (textBoxLog.InvokeRequired)
             {
-                filter = new Btdig();
+                textBoxLog.Invoke(new Action(() => textBoxLog.AppendText(message + Environment.NewLine)));
             }
-            else if(comboBox1.Text=="torrent")
+            else
             {
-                filter = new TorrentFilter();
+                textBoxLog.AppendText(message + Environment.NewLine);
             }
-            else if(comboBox1.Text=="XXXClub")
-            {
-                filter = new Xxxclub();
-            }
-
-            
-            filter.Process(textBox1.Text);
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private async void button1_Click_2(object sender, EventArgs e)
         {
-            IUnknown unknown= null;
-            if(comboBox1.Text=="PornoMagnet")
+            FilterBase filter;
+            
+            try
             {
-                unknown=new PornoMagnetUnknown();
-            }
-            else if(comboBox1.Text=="XXXClub")
+                button1.Enabled = false;
+                Type type = Type.GetType("BLL."+comboBox1.SelectedValue+", BLL");
+                filter= (FilterBase)Activator.CreateInstance(type);
+                
+                await Task.Run(() => filter.Process(textBox1.Text));
+            }            
+            catch (Exception ex)
             {
-                unknown = new XxxClubUnknown();
+                AppendLog("发生错误: " + ex.Message);
             }
-
-            unknown.Process(textBox1.Text);
-
+            finally
+            {
+                button1.Enabled = true;
+            }
         }
     }
 }
+
+public class ConsoleWriter : TextWriter
+{
+    private readonly Form1 form;
+
+    public ConsoleWriter(Form1 form)
+    {
+        this.form = form;
+    }
+
+    public override void WriteLine(string value)
+    {
+        form.AppendLog(value);
+    }
+
+    public override void Write(string value)
+    {
+        form.AppendLog(value);
+    }
+
+    public override Encoding Encoding => Encoding.UTF8;
+}
+
+

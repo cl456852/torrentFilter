@@ -33,7 +33,11 @@ namespace BLL
                 rarbgTitle.Name = titleRegex.Match(content).Value.Replace("<h1>","").Replace("</h1>","");
                 string sizeStr = sizeRegex.Match(content).Value.Replace("Размер</td><td>", "").Replace("</td></tr>","").Replace(" ","");
                 rarbgTitle.Maglink = magnetRegex.Match(content).Value.Replace("\"", "").Replace("amp;","");
-                
+                if (string.IsNullOrEmpty(rarbgTitle.Maglink))
+                {
+                    Tool.moveFile("noMagLink",path);
+                    continue;
+                }
                 if (sizeStr.EndsWith("GB"))
                 {
                     rarbgTitle.Size = (float)(Convert.ToDouble(sizeStr.Replace("GB", "")) * 1024);
